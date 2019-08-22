@@ -3,21 +3,19 @@ from django.db import models
 from django.utils import timezone
 
 class Aluno(models.Model):
-    aluno_id = models.AutoField(primary_key = True)
     nome = models.CharField(max_length = 80)
     documento = models.PositiveIntegerField()
     telefone = models.CharField(max_length = 15)
-    curso = models.ForeignKey('Curso',db_column = 'curso_id', on_delete = models.PROTECT )
+    curso = models.ForeignKey('Curso', on_delete = models.CASCADE )
 
     def publish(self):
         self.published_date = timezone.now
         self.save()
     
     def __str__(self):
-        return ( self.nome,self.aluno_id)
+        return ( self.nome)
 
 class Curso(models.Model):
-    curso_id = models.AutoField(primary_key = True)
     nome = models.CharField(max_length = 80)
     duracao = models.PositiveIntegerField
     tipo = models.CharField(max_length = 20)
@@ -30,10 +28,9 @@ class Curso(models.Model):
         self.save()
     
     def __str__(self):
-        return (self.nome,  self.curso_id)
+        return (self.nome)
 
 class Instituicao(models.Model):
-    instituicao_id = models.AutoField(primary_key = True)
     nome = models.CharField(max_length = 80)
     
     def publish(self):
@@ -41,11 +38,10 @@ class Instituicao(models.Model):
         self.save()
     
     def __str__(self):
-        return (self.nome, self.instituicao_id)
+        return (self.nome)
 
 
 class Disciplina(models.Model):
-    discplina_id = models.AutoField(primary_key = True)
     nome = models.CharField(max_length = 80)
     serie = models.PositiveIntegerField
     tipo = models.CharField(max_length = 20)
@@ -56,7 +52,7 @@ class Disciplina(models.Model):
         self.save()
     
     def __str__(self):
-        return (self.nome, self.discplina_id)
+        return (self.nome)
 
 class Disc_has_aluno(models.Model):
     aluno = models.ForeignKey('Aluno', on_delete = models.CASCADE)    
