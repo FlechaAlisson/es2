@@ -6,7 +6,7 @@ class Aluno(models.Model):
     nome = models.CharField(max_length = 80)
     documento = models.PositiveIntegerField()
     telefone = models.CharField(max_length = 15)
-    instituicao = models.ForeignKey('Curso', on_delete = models.CASCADE)
+    curso = models.ForeignKey('Curso', on_delete = models.CASCADE)
 
     def publish(self):
         self.published_date = timezone.now
