@@ -17,7 +17,7 @@ class Aluno(models.Model):
         return ( self.nome,self.id)
 
 class Curso(models.Model):
-    curso_id = models.AutoField(primary_key = True)
+    id = models.AutoField(primary_key = True)
     nome = models.CharField(max_length = 80)
     duracao = models.PositiveIntegerField
     tipo = models.CharField(max_length = 20)
@@ -30,7 +30,7 @@ class Curso(models.Model):
         self.save()
     
     def __str__(self):
-        return (self.nome,  self.curso_id)
+        return (self.nome,  self.id)
 
 class Instituicao(models.Model):
     instituicao_id = models.AutoField(primary_key = True)
