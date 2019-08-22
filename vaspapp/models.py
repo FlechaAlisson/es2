@@ -3,21 +3,21 @@ from django.db import models
 from django.utils import timezone
 
 class Aluno(models.Model):
-    id = models.AutoField(primary_key = True)
+    aluno_id = models.AutoField(primary_key = True)
     nome = models.CharField(max_length = 80)
     documento = models.PositiveIntegerField()
     telefone = models.CharField(max_length = 15)
-    curso = models.ForeignKey('Curso', on_delete = models.CASCADE)
+    curso = models.ForeignKey('Curso',db_column = 'curso_id', on_delete = models.PROTECT )
 
     def publish(self):
         self.published_date = timezone.now
         self.save()
     
     def __str__(self):
-        return ( self.nome,self.id)
+        return ( self.nome,self.aluno_id)
 
 class Curso(models.Model):
-    id = models.AutoField(primary_key = True)
+    curso_id = models.AutoField(primary_key = True)
     nome = models.CharField(max_length = 80)
     duracao = models.PositiveIntegerField
     tipo = models.CharField(max_length = 20)
@@ -30,7 +30,7 @@ class Curso(models.Model):
         self.save()
     
     def __str__(self):
-        return (self.nome,  self.id)
+        return (self.nome,  self.curso_id)
 
 class Instituicao(models.Model):
     instituicao_id = models.AutoField(primary_key = True)
