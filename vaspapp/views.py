@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def aluno_list(request):
+    return render(request, 'vaspp/post_list.html', {})
