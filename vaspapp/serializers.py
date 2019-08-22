@@ -1,2 +1,28 @@
 from rest_framework import serializers
 from models import Aluno, Curso, Instituicao, Disc_has_aluno, Disciplina
+
+
+
+class AlunoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Aluno
+        field = '__all__'
+
+class CursoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Curso
+        field = '__all__'
+class InstituicaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Instituicao
+        field = '__all__'
+
+class DisciplinaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Disciplina
+        field = '__all__'
+        
+class Disc_has_alunoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Disc_has_aluno
+        field = '__all__'
