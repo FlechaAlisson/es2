@@ -11,7 +11,7 @@ class AlunoSerializer(serializers.ModelSerializer):
 class CursoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Curso
-        field = '__all__'
+        fields = '__all__'
 class InstituicaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Instituicao
