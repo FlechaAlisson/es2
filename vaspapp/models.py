@@ -4,7 +4,7 @@ from django.utils import timezone
 
 class Aluno(models.Model):
     nome = models.CharField(max_length = 80)
-    documento = models.PositiveIntegerField()
+    documento = models.PositiveIntegerField(null=True, blank=True, default=None)
     telefone = models.CharField(max_length = 15)
     curso = models.ForeignKey('Curso', on_delete = models.CASCADE )
 
@@ -17,9 +17,9 @@ class Aluno(models.Model):
 
 class Curso(models.Model):
     nome = models.CharField(max_length = 80)
-    duracao = models.PositiveIntegerField
+    duracao = models.PositiveIntegerField(null=True, blank=True, default=None)
     tipo = models.CharField(max_length = 20)
-    cargaHoraria =  models.PositiveIntegerField
+    cargaHoraria =  models.PositiveIntegerField(null=True, blank=True, default=None)
     instituicao = models.ForeignKey('Instituicao', on_delete = models.CASCADE)
 
     def publish(self):
@@ -43,9 +43,9 @@ class Instituicao(models.Model):
 
 class Disciplina(models.Model):
     nome = models.CharField(max_length = 80)
-    serie = models.PositiveIntegerField
+    serie = models.PositiveIntegerField(null=True, blank=True, default=None)
     tipo = models.CharField(max_length = 20)
-    cargaHoraria =  models.PositiveIntegerField
+    cargaHoraria =  models.PositiveIntegerField(null=True, blank=True, default=None)
 
     def publish(self):
         self.published_date = timezone.now
@@ -64,4 +64,5 @@ class Disc_has_aluno(models.Model):
     
     def __str__(self):
         return (self.aluno,self.disc)
+
 
