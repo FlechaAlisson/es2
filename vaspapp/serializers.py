@@ -23,7 +23,3 @@ class DisciplinaSerializer(serializers.ModelSerializer):
         model = Disciplina
         fields = '__all__'
         
-# class Disc_has_alunoSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Disc_has_aluno
-#         fields = '__all__'

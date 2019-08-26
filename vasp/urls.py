@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url
-from django.urls import path,include
+from django.urls import path, include
 from rest_framework import routers
 import vaspapp.views as views  
 
@@ -24,12 +24,11 @@ router.register(r'aluno', views.AlunoViewSet )
 router.register(r'disciplina', views.DisciplinaViewSet )
 router.register(r'curso', views.CursoViewSet )
 router.register(r'inst', views.InsituicaoViewSet )
-# router.register(r'cha', views.Disc_has_alunoViewSet )
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("vaspapp/", include("vaspapp.urls")),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-
 ]
