@@ -24,7 +24,7 @@ router.register(r'aluno', views.AlunoViewSet )
 router.register(r'disciplina', views.DisciplinaViewSet )
 router.register(r'curso', views.CursoViewSet )
 router.register(r'inst', views.InsituicaoViewSet )
-router.register(r'cha', views.Disc_has_alunoViewSet )
+# router.register(r'cha', views.Disc_has_alunoViewSet )
 
 
 urlpatterns = [

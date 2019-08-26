@@ -1,17 +1,17 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Aluno, Disc_has_aluno, Disciplina, Curso,Instituicao
-from .serializers import AlunoSerializer, Disc_has_alunoSerializer, DisciplinaSerializer, CursoSerializer, InstituicaoSerializer
+from .models import Aluno, Disciplina, Curso, Instituicao
+from .serializers import AlunoSerializer, DisciplinaSerializer, CursoSerializer, InstituicaoSerializer
 
 class AlunoViewSet(viewsets.ModelViewSet):
 
     queryset = Aluno.objects
     serializer_class = AlunoSerializer
 
-class Disc_has_alunoViewSet(viewsets.ModelViewSet):
+# class Disc_has_alunoViewSet(viewsets.ModelViewSet):
 
-    queryset = Disc_has_aluno.objects
-    serializer_class = Disc_has_alunoSerializer
+#     queryset = Disc_has_aluno.objects
+#     serializer_class = Disc_has_alunoSerializer
 
 class DisciplinaViewSet(viewsets.ModelViewSet):
 

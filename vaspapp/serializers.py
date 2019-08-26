@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Aluno, Curso, Instituicao, Disc_has_aluno, Disciplina
+from .models import Aluno, Curso, Instituicao, Disciplina
 
 
 
@@ -12,6 +12,7 @@ class CursoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Curso
         fields = '__all__'
+
 class InstituicaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Instituicao
@@ -22,7 +23,7 @@ class DisciplinaSerializer(serializers.ModelSerializer):
         model = Disciplina
         fields = '__all__'
         
-class Disc_has_alunoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Disc_has_aluno
-        fields = '__all__'
+# class Disc_has_alunoSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Disc_has_aluno
+#         fields = '__all__'
