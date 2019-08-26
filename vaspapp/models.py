@@ -16,6 +16,9 @@ class Aluno(models.Model):
     def __str__(self):
         return ( self.nome)
 
+    def get_absolute_url(self):
+        return reverse('aluno-add', kwargs={'pk': self.pk})
+
 class Curso(models.Model):
     nome = models.CharField(max_length = 80)
     duracao = models.PositiveIntegerField(null=True, blank=True, default=None)
@@ -30,6 +33,9 @@ class Curso(models.Model):
     
     def __str__(self):
         return (self.nome)
+
+    def get_absolute_url(self):
+        return reverse('curso', kwargs={'pk': self.pk})
 
 class Instituicao(models.Model):
     nome = models.CharField(max_length = 80)

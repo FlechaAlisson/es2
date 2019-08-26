@@ -1,5 +1,8 @@
+from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import viewsets
+from django.views.generic import CreateView, UpdateView, DeleteView
+
 from .models import Aluno, Disciplina, Curso, Instituicao
 from .serializers import AlunoSerializer, DisciplinaSerializer, CursoSerializer, InstituicaoSerializer
 from .forms import AlunoForm
@@ -33,35 +36,19 @@ def aluno_view(request, pk, template_name='aluno/aluno_view.html'):
     }
     return render(request, template_name, context)
 
-def aluno_create(request, template_name='aluno/aluno_form.html'):
-    form = AlunoForm()
-    if request.method == 'POST':
-       form = AlunoForm(request.POST)
-       if form.is_valid():
-            form.save()
-            # return redirect('')
-    context = {
-        "form": form
-    }
-    return render(request, template_name, context)
+class AlunoCreate(CreateView):
+    form_class = AlunoForm
+    template_name = 'aluno/aluno_form.html'
+    # success_url = '/'
 
-# def aluno_update(request, pk, template_name='aluno/aluno_form.html'):
-#     book= get_object_or_404(Book, pk=pk)
-#     form = BookForm(request.POST or None, instance=book)
-#     if form.is_valid():
-#         form.save()
-#         return redirect('books_pc_multi_view2:home')
-#     context = {}
-#     context["form"] = form
-#     context["book"] = book
-#     return render(request, template_name, context)
+class AlunoUpdate(UpdateView):
+    model = Aluno
+    form_class = AlunoForm
+    template_name = 'aluno/aluno_form.html'
 
-# def aluno_delete(request, pk, template_name='aluno/aluno_confirm_delete.html'):
-#     book= get_object_or_404(Book, pk=pk)    
-#     if request.method=='POST':
-#         book.delete()
-#         return redirect('books_pc_multi_view2:home')
-#     context = {}
-#     context["object"] = book
-#     context["book"] = book
-#     return render(request, template_name, context)
+class AlunoDelete(DeleteView):
+    model = Aluno
+    success_url = reverse_lazy('aluno-add')
+    template_name = 'aluno/aluno_confirm_delete.html'
+
+
