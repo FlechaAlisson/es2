@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Cursos</h1>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th>Nome</th>
+                <th>Duração</th>
+                <th>Tipo</th>
+                <th>Carga Horária</th>
+                <th>Instituição</th>
+                <th>
+                    <a role="button" href="{% url 'curso-add' %}" class="btn btn-primary active">
+                        <span class="fa fa-plus"></span>
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for curso in object_list %}
+                <tr>
+                    <td>{{ curso.nome }}</td>
+                    <td>{{ curso.duracao }}</td>
+                    <td>{{ curso.tipo }}</td>
+                    <td>{{ curso.cargaHoraria }}</td>
+                    <td>{{ curso.instituicao.nome }}</td>
+                    <td>
+                        <a role="button" class="btn btn-primary active"
+                            href="{% url 'aluno-curso' curso=curso.pk %}">
+                            <span class="fa fa-graduation-cap"></span>
+                        </a>
+                        <a role="button" class="btn btn-primary active"
+                            href="{% url 'disciplina-curso' curso=curso.pk %}">
+                            <span class="fa fa-book"></span>
+                        </a>
+                        <a role="button" class="btn btn-success active"
+                        href="{% url 'curso-update' curso.pk %}">
+                            <span class="fa fa-edit"></span>
+                        </a>
+                        <a role="button" class="btn btn-danger active"
+                        href="{% url 'curso-delete' curso.pk %}">
+                            <span class="fa fa-trash"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+            <div class="alert alert-danger" role="alert">
+                Nenhum Curso Encontrado!
+            </div>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
