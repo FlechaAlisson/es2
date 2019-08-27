@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 class Aluno(models.Model):
     nome = models.CharField(max_length = 80)
@@ -17,7 +18,7 @@ class Aluno(models.Model):
         return ( self.nome)
 
     def get_absolute_url(self):
-        return reverse('aluno-add', kwargs={'pk': self.pk})
+        return reverse('alunos', kwargs={'pk': self.pk})
 
 class Curso(models.Model):
     nome = models.CharField(max_length = 80)
@@ -35,7 +36,7 @@ class Curso(models.Model):
         return (self.nome)
 
     def get_absolute_url(self):
-        return reverse('curso-add', kwargs={'pk': self.pk})
+        return reverse('cursos', kwargs={'pk': self.pk})
 
 class Instituicao(models.Model):
     nome = models.CharField(max_length = 80)
@@ -48,7 +49,7 @@ class Instituicao(models.Model):
         return (self.nome)
 
     def get_absolute_url(self):
-        return reverse('instituicao-add', kwargs={'pk': self.pk})
+        return reverse('instituicaos', kwargs={'pk': self.pk})
 
 
 class Disciplina(models.Model):
@@ -66,7 +67,7 @@ class Disciplina(models.Model):
         return (self.nome)
     
     def get_absolute_url(self):
-        return reverse('disciplina-add', kwargs={'pk': self.pk})
+        return reverse('disciplinas', kwargs={'pk': self.pk})
 
 
 

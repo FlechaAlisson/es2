@@ -1,7 +1,8 @@
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
 from rest_framework import viewsets
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 
 from .models import Aluno, Disciplina, Curso, Instituicao
 from .serializers import AlunoSerializer, DisciplinaSerializer, CursoSerializer, InstituicaoSerializer
@@ -29,43 +30,58 @@ class InsituicaoViewSet(viewsets.ModelViewSet):
 
 # ========== Aluno CRUD ==========
 
-def aluno_view(request, pk, template_name='aluno/aluno_view.html'):
-    aluno = get_object_or_404(Aluno, pk=pk)
-    context = {
-        "aluno": aluno,
-    }
-    return render(request, template_name, context)
+class AlunoList(ListView):
+    model = Aluno
+    paginate_by = 20  # if pagination is desired
+    template_name = 'aluno/aluno_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context
 
 class AlunoCreate(CreateView):
     form_class = AlunoForm
     template_name = 'aluno/aluno_form.html'
-    # success_url = '/'
+    success_url = reverse_lazy('alunos')
 
 class AlunoUpdate(UpdateView):
     model = Aluno
     form_class = AlunoForm
     template_name = 'aluno/aluno_form.html'
+    success_url = reverse_lazy('alunos')
 
 class AlunoDelete(DeleteView):
     model = Aluno
-    success_url = reverse_lazy('aluno-add')
+    success_url = reverse_lazy('alunos')
     template_name = 'aluno/aluno_confirm_delete.html'
 
 # ========== Curso CRUD ==========
 
+class CursoList(ListView):
+    model = Curso
+    paginate_by = 20  # if pagination is desired
+    template_name = 'curso/curso_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context
+
 class CursoCreate(CreateView):
     form_class = CursoForm
     template_name = 'curso/curso_form.html'
-    # success_url = '/'
+    success_url = reverse_lazy('cursos')
 
 class CursoUpdate(UpdateView):
     model = Curso
     form_class = CursoForm
     template_name = 'curso/curso_form.html'
+    success_url = reverse_lazy('cursos')
 
 class CursoDelete(DeleteView):
     model = Curso
-    success_url = reverse_lazy('curso-add')
+    success_url = reverse_lazy('cursos')
     template_name = 'curso/curso_confirm_delete.html'
 
 # ========== Instituição CRUD ==========
@@ -73,16 +89,17 @@ class CursoDelete(DeleteView):
 class InstituicaoCreate(CreateView):
     form_class = InstituicaoForm
     template_name = 'instituicao/instituicao_form.html'
-    # success_url = '/'
+    success_url = reverse_lazy('instituicaos')
 
 class InstituicaoUpdate(UpdateView):
     model = Instituicao
     form_class = InstituicaoForm
     template_name = 'instituicao/instituicao_form.html'
+    success_url = reverse_lazy('instituicaos')
 
 class InstituicaoDelete(DeleteView):
     model = Instituicao
-    success_url = reverse_lazy('instituicao-add')
+    success_url = reverse_lazy('instituicaos')
     template_name = 'instituicao/instituicao_confirm_delete.html'
 
 # ========== Disciplina CRUD ==========
@@ -90,15 +107,16 @@ class InstituicaoDelete(DeleteView):
 class DisciplinaCreate(CreateView):
     form_class = DisciplinaForm
     template_name = 'disciplina/disciplina_form.html'
-    # success_url = '/'
+    success_url = reverse_lazy('disciplinas')
 
 class DisciplinaUpdate(UpdateView):
     model = Disciplina
     form_class = DisciplinaForm
     template_name = 'disciplina/disciplina_form.html'
+    success_url = reverse_lazy('disciplinas')
 
 class DisciplinaDelete(DeleteView):
     model = Disciplina
-    success_url = reverse_lazy('disciplina-add')
+    success_url = reverse_lazy('disciplinas')
     template_name = 'disciplina/disciplina_confirm_delete.html'
 

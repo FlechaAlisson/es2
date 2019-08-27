@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
-from .views import AlunoCreate, AlunoUpdate, AlunoDelete
-from .views import CursoCreate, CursoUpdate, CursoDelete
+from .views import AlunoList, AlunoCreate, AlunoUpdate, AlunoDelete
+from .views import CursoList, CursoCreate, CursoUpdate, CursoDelete
 from .views import InstituicaoCreate, InstituicaoUpdate, InstituicaoDelete
 from .views import DisciplinaCreate, DisciplinaUpdate, DisciplinaDelete
 
@@ -11,10 +11,12 @@ urlpatterns = [
     # path("", views.home, name="home"),
     # path("aluno/", views.aluno_view, name="aluno-list"),
     # path("aluno/<int:pk>/", views.aluno_view, name="aluno_view"),
+    path("aluno/", AlunoList.as_view(), name='alunos'),
     path("aluno/add/", AlunoCreate.as_view(), name="aluno-add"),
     path("aluno/<int:pk>/", AlunoUpdate.as_view(), name="aluno-update"),
     path("aluno/<int:pk>/delete", AlunoDelete.as_view(), name="aluno-delete"),
     
+    path("curso/", CursoList.as_view(), name='cursos'),
     path("curso/add/", CursoCreate.as_view(), name="curso-add"),
     path("curso/<int:pk>/", CursoUpdate.as_view(), name="curso-update"),
     path("curso/<int:pk>/delete", CursoDelete.as_view(), name="curso-delete"),
