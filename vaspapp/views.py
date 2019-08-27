@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from rest_framework import viewsets
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Aluno, Disciplina, Curso, Instituicao
 from .serializers import AlunoSerializer, DisciplinaSerializer, CursoSerializer, InstituicaoSerializer
@@ -30,7 +31,7 @@ class InsituicaoViewSet(viewsets.ModelViewSet):
 
 # ========== Aluno CRUD ==========
 
-class AlunoList(ListView):
+class AlunoList(LoginRequiredMixin, ListView):
     model = Aluno
     paginate_by = 20  # if pagination is desired
     template_name = 'aluno/aluno_list.html'
@@ -55,25 +56,25 @@ class AlunoList(ListView):
             queryset = queryset.filter(curso=self.kwargs.get('curso'))
         return queryset
 
-class AlunoCreate(CreateView):
+class AlunoCreate(LoginRequiredMixin, CreateView):
     form_class = AlunoForm
     template_name = 'aluno/aluno_form.html'
     success_url = reverse_lazy('alunos')
 
-class AlunoUpdate(UpdateView):
+class AlunoUpdate(LoginRequiredMixin, UpdateView):
     model = Aluno
     form_class = AlunoForm
     template_name = 'aluno/aluno_form.html'
     success_url = reverse_lazy('alunos')
 
-class AlunoDelete(DeleteView):
+class AlunoDelete(LoginRequiredMixin, DeleteView):
     model = Aluno
     success_url = reverse_lazy('alunos')
     template_name = 'aluno/aluno_confirm_delete.html'
 
 # ========== Curso CRUD ==========
 
-class CursoList(ListView):
+class CursoList(LoginRequiredMixin, ListView):
     model = Curso
     paginate_by = 20  # if pagination is desired
     template_name = 'curso/curso_list.html'
@@ -83,43 +84,43 @@ class CursoList(ListView):
         context['now'] = timezone.now()
         return context
 
-class CursoCreate(CreateView):
+class CursoCreate(LoginRequiredMixin, CreateView):
     form_class = CursoForm
     template_name = 'curso/curso_form.html'
     success_url = reverse_lazy('cursos')
 
-class CursoUpdate(UpdateView):
+class CursoUpdate(LoginRequiredMixin, UpdateView):
     model = Curso
     form_class = CursoForm
     template_name = 'curso/curso_form.html'
     success_url = reverse_lazy('cursos')
 
-class CursoDelete(DeleteView):
+class CursoDelete(LoginRequiredMixin, DeleteView):
     model = Curso
     success_url = reverse_lazy('cursos')
     template_name = 'curso/curso_confirm_delete.html'
 
 # ========== Instituição CRUD ==========
 
-class InstituicaoCreate(CreateView):
+class InstituicaoCreate(LoginRequiredMixin, CreateView):
     form_class = InstituicaoForm
     template_name = 'instituicao/instituicao_form.html'
     success_url = reverse_lazy('instituicaos')
 
-class InstituicaoUpdate(UpdateView):
+class InstituicaoUpdate(LoginRequiredMixin, UpdateView):
     model = Instituicao
     form_class = InstituicaoForm
     template_name = 'instituicao/instituicao_form.html'
     success_url = reverse_lazy('instituicaos')
 
-class InstituicaoDelete(DeleteView):
+class InstituicaoDelete(LoginRequiredMixin, DeleteView):
     model = Instituicao
     success_url = reverse_lazy('instituicaos')
     template_name = 'instituicao/instituicao_confirm_delete.html'
 
 # ========== Disciplina CRUD ==========
 
-class DisciplinaList(ListView):
+class DisciplinaList(LoginRequiredMixin, ListView):
     model = Disciplina
     paginate_by = 20  # if pagination is desired
     template_name = 'disciplina/disciplina_list.html'
@@ -137,18 +138,18 @@ class DisciplinaList(ListView):
             queryset = queryset.filter(curso=self.kwargs.get('curso'))
         return queryset
 
-class DisciplinaCreate(CreateView):
+class DisciplinaCreate(LoginRequiredMixin, CreateView):
     form_class = DisciplinaForm
     template_name = 'disciplina/disciplina_form.html'
     success_url = reverse_lazy('disciplinas')
 
-class DisciplinaUpdate(UpdateView):
+class DisciplinaUpdate(LoginRequiredMixin, UpdateView):
     model = Disciplina
     form_class = DisciplinaForm
     template_name = 'disciplina/disciplina_form.html'
     success_url = reverse_lazy('disciplinas')
 
-class DisciplinaDelete(DeleteView):
+class DisciplinaDelete(LoginRequiredMixin, DeleteView):
     model = Disciplina
     success_url = reverse_lazy('disciplinas')
     template_name = 'disciplina/disciplina_confirm_delete.html'

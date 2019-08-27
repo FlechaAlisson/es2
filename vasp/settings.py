@@ -55,6 +55,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'vasp.urls'
+LOGIN_REDIRECT_URL = 'alunos'
+LOGOUT_REDIRECT_URL = 'login'
 
 TEMPLATES = [
     {

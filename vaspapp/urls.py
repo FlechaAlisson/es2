@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls import url
 from . import views
 from .views import AlunoList, AlunoCreate, AlunoUpdate, AlunoDelete
@@ -9,10 +9,9 @@ from .views import DisciplinaList, DisciplinaCreate, DisciplinaUpdate, Disciplin
 
 
 urlpatterns = [
-    # path("", views.home, name="home"),
-    # path("aluno/", views.aluno_view, name="aluno-list"),
-    # path("aluno/<int:pk>/", views.aluno_view, name="aluno_view"),
-    # url(r'^aluno/^(?P<disc>\d)/$', AlunoList.as_view()),
+    path('', include('django.contrib.auth.urls'), name='login'),
+    # path('', TemplateView.as_view(template_name='home.html'), name='home'),
+
     path("aluno/", AlunoList.as_view(), name='alunos'),
     path("aluno/disc/<int:disc>", AlunoList.as_view(), name='aluno-disciplina'),
     path("aluno/curso/<int:curso>", AlunoList.as_view(), name='aluno-curso'),
