@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Disciplinas
+    {% if curso %}
+    em {{ curso.nome }}
+    {% endif %}
+</h1>
+
+{% if object_list %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th>Nome</th>
+                    <th>Série</th>
+                    <th>Tipo</th>
+                    <th>Carga Horária</th>
+                    <th>Curso</th>
+                    <th>
+                        <a role="button" href="{% url 'disciplina-add' %}" class="btn btn-primary active">
+                            <span class="fa fa-plus"></span>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for disciplina in object_list %}
+                    <tr>
+                        <td>{{ disciplina.nome }}</td>
+                        <td>{{ disciplina.serie }}</td>
+                        <td>{{ disciplina.tipo }}</td>
+                        <td>{{ disciplina.cargaHoraria }}</td>
+                        <td>{{ disciplina.curso.nome }}</td>
+                        <td>
+                            <a role="button" class="btn btn-primary active"
+                            href="{% url 'aluno-disciplina' disc=disciplina.pk %}">
+                                <span class="fa fa-graduation-cap"></span>
+                            </a>
+                            <a role="button" class="btn btn-success active"
+                            href="{% url 'disciplina-update' disciplina.pk %}">
+                                <span class="fa fa-edit"></span>
+                            </a>
+                            <a role="button" class="btn btn-danger active"
+                            href="{% url 'disciplina-delete' disciplina.pk %}">
+                                <span class="fa fa-trash"></span>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-danger" role="alert">
+        Nenhuma Disciplina Encontrada!
+    </div>
+{% endif %}
+{% endblock %}

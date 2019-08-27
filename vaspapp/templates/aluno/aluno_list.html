@@ -1,41 +1,52 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Alunos</h1>
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead class="thead-light">
-            <tr>
-                <th>Nome</th>
-                <th>Curso</th>
-                <th>Telefone</th>
-                <th>Documento</th>
-                <th>
-                    <a role="button" href="{% url 'aluno-add' %}" class="btn btn-primary active">
-                        <span class="fa fa-plus"></span>
-                    </a>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for aluno in object_list %}
+<h1>
+    Alunos
+    {% if disc %}
+    em {{ disc.nome }}
+    {% elif curso %}
+    em {{ curso.nome }}
+    {% endif %}
+</h1>
+{% if object_list %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-light">
                 <tr>
-                    <td>{{ aluno.nome }}</td>
-                    <td>{{ aluno.curso }}</td>
-                    <td>{{ aluno.telefone }}</td>
-                    <td>{{ aluno.documento }}</td>
-                    <td>
-                        <a role="button" href="{% url 'aluno-update' aluno.pk %}" class="btn btn-success active">
-                            <span class="fa fa-edit"></span>
+                    <th>Nome</th>
+                    <th>Curso</th>
+                    <th>Telefone</th>
+                    <th>Documento</th>
+                    <th>
+                        <a role="button" href="{% url 'aluno-add' %}" class="btn btn-primary active">
+                            <span class="fa fa-plus"></span>
                         </a>
-                        <a role="button" href="{% url 'aluno-delete' aluno.pk %}" class="btn btn-danger active">
-                            <span class="fa fa-trash"></span>
-                        </a>
-                    </td>
+                    </th>
                 </tr>
-            {% empty %}
-                <li>Nenhum Aluno cadastrado.</li>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                {% for aluno in object_list %}
+                    <tr>
+                        <td>{{ aluno.nome }}</td>
+                        <td>{{ aluno.curso }}</td>
+                        <td>{{ aluno.telefone }}</td>
+                        <td>{{ aluno.documento }}</td>
+                        <td>
+                            <a role="button" href="{% url 'aluno-update' aluno.pk %}" class="btn btn-success active">
+                                <span class="fa fa-edit"></span>
+                            </a>
+                            <a role="button" href="{% url 'aluno-delete' aluno.pk %}" class="btn btn-danger active">
+                                <span class="fa fa-trash"></span>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-danger" role="alert">
+        Nenhum Aluno Encontrado!
+    </div>
+{% endif %}
 {% endblock %}

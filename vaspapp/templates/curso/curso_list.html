@@ -26,16 +26,28 @@
                     <td>{{ curso.cargaHoraria }}</td>
                     <td>{{ curso.instituicao.nome }}</td>
                     <td>
-                        <button type="submit" class="btn btn-success">
+                        <a role="button" class="btn btn-primary active"
+                            href="{% url 'aluno-curso' curso=curso.pk %}">
+                            <span class="fa fa-graduation-cap"></span>
+                        </a>
+                        <a role="button" class="btn btn-primary active"
+                            href="{% url 'disciplina-curso' curso=curso.pk %}">
+                            <span class="fa fa-book"></span>
+                        </a>
+                        <a role="button" class="btn btn-success active"
+                        href="{% url 'curso-update' curso.pk %}">
                             <span class="fa fa-edit"></span>
-                        </button>
-                        <button type="submit" class="btn btn-danger">
+                        </a>
+                        <a role="button" class="btn btn-danger active"
+                        href="{% url 'curso-delete' curso.pk %}">
                             <span class="fa fa-trash"></span>
-                        </button>
+                        </a>
                     </td>
                 </tr>
             {% empty %}
-                <li>Nenhum Curso cadastrado.</li>
+            <div class="alert alert-danger" role="alert">
+                Nenhum Curso Encontrado!
+            </div>
             {% endfor %}
         </tbody>
     </table>

@@ -38,7 +38,22 @@ class AlunoList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['now'] = timezone.now()
+        if self.kwargs.get('disc'):
+            context['disc'] = Disciplina.objects.get(pk=self.kwargs.get('disc'))
+        if self.kwargs.get('curso'):
+            context['curso'] = Curso.objects.get(pk=self.kwargs.get('curso'))
         return context
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        curso = self.request.GET.get('curso')
+        if curso is not None:
+            queryset = queryset.filter(curso=curso)
+        if self.kwargs.get('disc'):
+            queryset = queryset.filter(disciplinas__id=self.kwargs.get('disc'))
+        if self.kwargs.get('curso'):
+            queryset = queryset.filter(curso=self.kwargs.get('curso'))
+        return queryset
 
 class AlunoCreate(CreateView):
     form_class = AlunoForm
@@ -103,6 +118,24 @@ class InstituicaoDelete(DeleteView):
     template_name = 'instituicao/instituicao_confirm_delete.html'
 
 # ========== Disciplina CRUD ==========
+
+class DisciplinaList(ListView):
+    model = Disciplina
+    paginate_by = 20  # if pagination is desired
+    template_name = 'disciplina/disciplina_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        if self.kwargs.get('curso'):
+            context['curso'] = Curso.objects.get(pk=self.kwargs.get('curso'))
+        return context
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.kwargs.get('curso'):
+            queryset = queryset.filter(curso=self.kwargs.get('curso'))
+        return queryset
 
 class DisciplinaCreate(CreateView):
     form_class = DisciplinaForm

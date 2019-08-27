@@ -1,9 +1,10 @@
 from django.urls import path
+from django.conf.urls import url
 from . import views
 from .views import AlunoList, AlunoCreate, AlunoUpdate, AlunoDelete
 from .views import CursoList, CursoCreate, CursoUpdate, CursoDelete
 from .views import InstituicaoCreate, InstituicaoUpdate, InstituicaoDelete
-from .views import DisciplinaCreate, DisciplinaUpdate, DisciplinaDelete
+from .views import DisciplinaList, DisciplinaCreate, DisciplinaUpdate, DisciplinaDelete
 
 
 
@@ -11,7 +12,10 @@ urlpatterns = [
     # path("", views.home, name="home"),
     # path("aluno/", views.aluno_view, name="aluno-list"),
     # path("aluno/<int:pk>/", views.aluno_view, name="aluno_view"),
+    # url(r'^aluno/^(?P<disc>\d)/$', AlunoList.as_view()),
     path("aluno/", AlunoList.as_view(), name='alunos'),
+    path("aluno/disc/<int:disc>", AlunoList.as_view(), name='aluno-disciplina'),
+    path("aluno/curso/<int:curso>", AlunoList.as_view(), name='aluno-curso'),
     path("aluno/add/", AlunoCreate.as_view(), name="aluno-add"),
     path("aluno/<int:pk>/", AlunoUpdate.as_view(), name="aluno-update"),
     path("aluno/<int:pk>/delete", AlunoDelete.as_view(), name="aluno-delete"),
@@ -25,6 +29,8 @@ urlpatterns = [
     path("instituicao/<int:pk>/", InstituicaoUpdate.as_view(), name="instituicao-update"),
     path("instituicao/<int:pk>/delete", InstituicaoDelete.as_view(), name="instituicao-delete"),
 
+    path("disciplina/", DisciplinaList.as_view(), name='disciplinas'),
+    path("disciplina/curso/<int:curso>", DisciplinaList.as_view(), name='disciplina-curso'),
     path("disciplina/add/", DisciplinaCreate.as_view(), name="disciplina-add"),
     path("disciplina/<int:pk>/", DisciplinaUpdate.as_view(), name="disciplina-update"),
     path("disciplina/<int:pk>/delete", DisciplinaDelete.as_view(), name="disciplina-delete"),
