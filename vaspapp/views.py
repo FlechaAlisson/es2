@@ -5,7 +5,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 
 from .models import Aluno, Disciplina, Curso, Instituicao
 from .serializers import AlunoSerializer, DisciplinaSerializer, CursoSerializer, InstituicaoSerializer
-from .forms import AlunoForm, CursoForm
+from .forms import AlunoForm, CursoForm, InstituicaoForm, DisciplinaForm
 
 class AlunoViewSet(viewsets.ModelViewSet):
 
@@ -67,3 +67,38 @@ class CursoDelete(DeleteView):
     model = Curso
     success_url = reverse_lazy('curso-add')
     template_name = 'curso/curso_confirm_delete.html'
+
+# ========== Instituição CRUD ==========
+
+class InstituicaoCreate(CreateView):
+    form_class = InstituicaoForm
+    template_name = 'instituicao/instituicao_form.html'
+    # success_url = '/'
+
+class InstituicaoUpdate(UpdateView):
+    model = Instituicao
+    form_class = InstituicaoForm
+    template_name = 'instituicao/instituicao_form.html'
+
+class InstituicaoDelete(DeleteView):
+    model = Instituicao
+    success_url = reverse_lazy('instituicao-add')
+    template_name = 'instituicao/instituicao_confirm_delete.html'
+
+# ========== Disciplina CRUD ==========
+
+class DisciplinaCreate(CreateView):
+    form_class = DisciplinaForm
+    template_name = 'disciplina/disciplina_form.html'
+    # success_url = '/'
+
+class DisciplinaUpdate(UpdateView):
+    model = Disciplina
+    form_class = DisciplinaForm
+    template_name = 'disciplina/disciplina_form.html'
+
+class DisciplinaDelete(DeleteView):
+    model = Disciplina
+    success_url = reverse_lazy('disciplina-add')
+    template_name = 'disciplina/disciplina_confirm_delete.html'
+

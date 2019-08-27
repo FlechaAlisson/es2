@@ -35,7 +35,7 @@ class Curso(models.Model):
         return (self.nome)
 
     def get_absolute_url(self):
-        return reverse('curso', kwargs={'pk': self.pk})
+        return reverse('curso-add', kwargs={'pk': self.pk})
 
 class Instituicao(models.Model):
     nome = models.CharField(max_length = 80)
@@ -46,6 +46,9 @@ class Instituicao(models.Model):
     
     def __str__(self):
         return (self.nome)
+
+    def get_absolute_url(self):
+        return reverse('instituicao-add', kwargs={'pk': self.pk})
 
 
 class Disciplina(models.Model):
@@ -61,6 +64,9 @@ class Disciplina(models.Model):
     
     def __str__(self):
         return (self.nome)
+    
+    def get_absolute_url(self):
+        return reverse('disciplina-add', kwargs={'pk': self.pk})
 
 
 
