@@ -9,7 +9,6 @@ from .views import DisciplinaList, DisciplinaCreate, DisciplinaUpdate, Disciplin
 
 
 urlpatterns = [
-    path('', include('django.contrib.auth.urls'), name='login'),
     # path('', TemplateView.as_view(template_name='home.html'), name='home'),
 
     path("aluno/", AlunoList.as_view(), name='alunos'),

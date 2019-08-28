@@ -27,6 +27,7 @@ router.register(r'inst', views.InsituicaoViewSet )
 
 
 urlpatterns = [
+    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path("vaspapp/", include("vaspapp.urls")),
     url(r'^', include(router.urls)),
