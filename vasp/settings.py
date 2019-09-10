@@ -55,12 +55,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'vasp.urls'
-<<<<<<< Updated upstream
 LOGIN_REDIRECT_URL = 'alunos'
 LOGOUT_REDIRECT_URL = 'login'
-=======
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
->>>>>>> Stashed changes
 
 TEMPLATES = [
     {

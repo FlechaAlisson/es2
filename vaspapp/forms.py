@@ -6,7 +6,7 @@ from .models import Aluno, Curso, Instituicao, Disciplina
 class AlunoForm(forms.ModelForm):
     class Meta:
         model = Aluno
-        fields = [ 'nome', 'documento', 'telefone', 'curso', 'disciplinas' ]
+        fields = [ 'nome', 'rg', 'cpf', 'telefone', 'curso', 'disciplinas' ]
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
