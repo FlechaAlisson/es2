@@ -1,7 +1,7 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from .models import Aluno, Curso, Instituicao, Disciplina
+from .models import Aluno, Curso, Instituicao, Disciplina, Nota, Frequencia
 
 class AlunoForm(forms.ModelForm):
     class Meta:
@@ -43,6 +43,28 @@ class DisciplinaForm(forms.ModelForm):
         fields = [ 'nome', 'serie', 'tipo', 'cargaHoraria', 'curso' ]
     
     def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Salvar'))
+
+class FrequenciaForm(forms.ModelForm):
+    class Meta:
+        model = Frequencia
+        fields = ['data' , 'presenca']
+    
+    def __init__(self, *args, **kwargs):        
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Salvar'))
+
+class NotaForm(forms.ModelForm):
+    class Meta:
+        model = Nota
+        fields = ['nota', 'data']
+    
+    def __init__(self, *args, **kwargs):        
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
