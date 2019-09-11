@@ -3,7 +3,7 @@ from django.conf.urls import url
 from . import views
 from .views import AlunoList, AlunoCreate, AlunoUpdate, AlunoDelete
 from .views import CursoList, CursoCreate, CursoUpdate, CursoDelete
-from .views import InstituicaoCreate, InstituicaoUpdate, InstituicaoDelete
+from .views import InstituicaoList, InstituicaoCreate, InstituicaoUpdate, InstituicaoDelete
 from .views import DisciplinaList, DisciplinaCreate, DisciplinaUpdate, DisciplinaDelete
 
 
@@ -23,6 +23,7 @@ urlpatterns = [
     path("curso/<int:pk>/", CursoUpdate.as_view(), name="curso-update"),
     path("curso/<int:pk>/delete", CursoDelete.as_view(), name="curso-delete"),
 
+    path("instituicao/", InstituicaoList.as_view(), name='instituicao'),
     path("instituicao/add/", InstituicaoCreate.as_view(), name="instituicao-add"),
     path("instituicao/<int:pk>/", InstituicaoUpdate.as_view(), name="instituicao-update"),
     path("instituicao/<int:pk>/delete", InstituicaoDelete.as_view(), name="instituicao-delete"),

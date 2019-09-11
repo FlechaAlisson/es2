@@ -5,11 +5,11 @@ from django.urls import reverse
 
 class Aluno(models.Model):
     nome = models.CharField(max_length = 80)
-    rg = models.PositiveIntegerField(unique=True,null=True, blank=True, default=None)
-    cpf = models.PositiveIntegerField(unique=True,null=True, blank=True, default=None) 
+    rg = models.PositiveIntegerField(unique=True, null=True, blank=True, default=None)
+    cpf = models.PositiveIntegerField(unique=True, blank=False, default=None) 
     telefone = models.CharField(max_length = 15)
     curso = models.ForeignKey('Curso', on_delete = models.CASCADE )
-    disciplinas = models.ManyToManyField('Disciplina', related_name='alunos', blank = True, through= 'Matricula')
+    disciplinas = models.ManyToManyField('Disciplina', related_name='alunos', blank = True, through='Matricula')
 
     def publish(self):
         self.published_date = timezone.now
@@ -100,14 +100,14 @@ class Nota(models.Model):
         self.save()
     
     def __str__(self):
-        return ( self.nota)
+        return (self.nota)
 
 
 
 class Professor(models.Model):
     nome = models.CharField(max_length = 80)
-    rg = models.PositiveIntegerField(unique=True,null=True, blank=True, default=None)
-    cpf = models.PositiveIntegerField(unique=True,null=True, blank=True, default=None) 
+    rg = models.PositiveIntegerField(unique=True, null=True, blank=True, default=None)
+    cpf = models.PositiveIntegerField(unique=True, blank=False, default=None) 
     telefone = models.CharField(max_length = 15)
     curso = models.ForeignKey('Curso', on_delete = models.CASCADE )
     disciplinas = models.ManyToManyField('Disciplina', related_name='professores', blank = True)
@@ -117,5 +117,5 @@ class Professor(models.Model):
         self.save()
     
     def __str__(self):
-        return ( self.nome)
+        return (self.nome)
 

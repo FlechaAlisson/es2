@@ -102,6 +102,16 @@ class CursoDelete(LoginRequiredMixin, DeleteView):
 
 # ========== Instituição CRUD ==========
 
+class InstituicaoList(LoginRequiredMixin, ListView):
+    model = Instituicao
+    paginate_by = 20  # if pagination is desired
+    template_name = 'instituicao/instituicao_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context
+
 class InstituicaoCreate(LoginRequiredMixin, CreateView):
     form_class = InstituicaoForm
     template_name = 'instituicao/instituicao_form.html'

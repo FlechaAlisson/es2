@@ -1,10 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Disciplinas
-    {% if curso %}
-    em {{ curso.nome }}
-    {% endif %}
-</h1>
+<div class="d-flex">
+    <div class="p-2 flex-grow-1 bd-highlight">
+        <h1>Disciplinas
+            {% if curso %}
+            em {{ curso.nome }}
+            {% endif %}
+        </h1>
+    </div>
+    <div class="p-2 bd-highlight align-self-center">
+        <a role="button" href="{% url 'disciplina-add' %}" class="btn btn-primary active"> 
+            <span class="fa fa-plus"></span>
+            Adicionar
+        </a>
+    </div>
+</div>
+
 
 {% if object_list %}
     <div class="table-responsive">
@@ -16,11 +27,7 @@
                     <th>Tipo</th>
                     <th>Carga Horária</th>
                     <th>Curso</th>
-                    <th>
-                        <a role="button" href="{% url 'disciplina-add' %}" class="btn btn-primary active">
-                            <span class="fa fa-plus"></span>
-                        </a>
-                    </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -55,4 +62,8 @@
         Nenhuma Disciplina Encontrada!
     </div>
 {% endif %}
+<div class="d-flex justify-content-center">
+    <span class="badge badge-info">{{ object_list | length }}
+        Disciplina{{ object_list | length | pluralize }}</span>
+</div>
 {% endblock %}
