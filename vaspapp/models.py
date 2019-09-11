@@ -94,6 +94,7 @@ class Frequencia(models.Model):
 class Nota(models.Model):
     matricula = models.ForeignKey('Matricula', on_delete = models.PROTECT)
     nota =  models.FloatField(null=True, blank=True, default=None)
+    data = models.DateField()
 
     def publish(self):
         self.published_date = timezone.now
