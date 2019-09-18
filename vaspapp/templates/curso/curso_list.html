@@ -12,6 +12,7 @@
     </div>
 </div>
 
+{% if object_list %}
 <div class="table-responsive">
     <table class="table table-striped">
         <thead class="thead-light">
@@ -47,10 +48,6 @@
                     </a>
                 </td>
             </tr>
-            {% empty %}
-            <div class="alert alert-danger" role="alert">
-                Nenhum Curso Encontrado!
-            </div>
             {% endfor %}
         </tbody>
     </table>
@@ -59,4 +56,9 @@
     <span class="badge badge-info">{{ object_list | length }}
         Curso{{ object_list | length | pluralize }}</span>
 </div>
+{% else %}
+<div class="alert alert-danger" role="alert">
+    Nenhum Curso Encontrado!
+</div>
+{% endif %}
 {% endblock %}

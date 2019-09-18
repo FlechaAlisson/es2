@@ -12,6 +12,7 @@
     </div>
 </div>
 
+{% if object_list %}
 <div class="table-responsive">
     <table class="table table-striped">
         <thead class="thead-light">
@@ -21,22 +22,18 @@
             </tr>
         </thead>
         <tbody>
-            {% for curso in object_list %}
+            {% for instituicao in object_list %}
             <tr>
-                <td>{{ curso.nome }}</td>
+                <td>{{ instituicao.nome }}</td>
                 <td>
-                    <a role="button" class="btn btn-success active" href="{% url 'curso-update' curso.pk %}">
+                    <a role="button" class="btn btn-success active" href="{% url 'instituicao-update' instituicao.pk %}">
                         <span class="fa fa-edit"></span>
                     </a>
-                    <a role="button" class="btn btn-danger active" href="{% url 'curso-delete' curso.pk %}">
+                    <a role="button" class="btn btn-danger active" href="{% url 'instituicao-delete' instituicao.pk %}">
                         <span class="fa fa-trash"></span>
                     </a>
                 </td>
             </tr>
-            {% empty %}
-            <div class="alert alert-danger" role="alert">
-                Nenhum Curso Encontrado!
-            </div>
             {% endfor %}
         </tbody>
     </table>
@@ -45,5 +42,10 @@
     <span class="badge badge-info">{{ object_list | length }}
         Institui{{ object_list | length | pluralize:"ção, ções" }}</span>
 </div>
+{% else %}
+<div class="alert alert-danger" role="alert">
+    Nenhuma Instituição Encontrada!
+</div>
+{% endif %}
 
 {% endblock %}

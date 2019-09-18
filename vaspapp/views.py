@@ -2,12 +2,12 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from rest_framework import viewsets
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Aluno, Disciplina, Curso, Instituicao
+from .models import Aluno, Disciplina, Curso, Instituicao, Professor, Matricula, Nota, Frequencia
 from .serializers import AlunoSerializer, DisciplinaSerializer, CursoSerializer, InstituicaoSerializer
-from .forms import AlunoForm, CursoForm, InstituicaoForm, DisciplinaForm
+from .forms import AlunoForm, CursoForm, InstituicaoForm, DisciplinaForm, FrequenciaForm
 
 class AlunoViewSet(viewsets.ModelViewSet):
 
@@ -115,17 +115,17 @@ class InstituicaoList(LoginRequiredMixin, ListView):
 class InstituicaoCreate(LoginRequiredMixin, CreateView):
     form_class = InstituicaoForm
     template_name = 'instituicao/instituicao_form.html'
-    success_url = reverse_lazy('instituicaos')
+    success_url = reverse_lazy('instituicao')
 
 class InstituicaoUpdate(LoginRequiredMixin, UpdateView):
     model = Instituicao
     form_class = InstituicaoForm
     template_name = 'instituicao/instituicao_form.html'
-    success_url = reverse_lazy('instituicaos')
+    success_url = reverse_lazy('instituicao')
 
 class InstituicaoDelete(LoginRequiredMixin, DeleteView):
     model = Instituicao
-    success_url = reverse_lazy('instituicaos')
+    success_url = reverse_lazy('instituicao')
     template_name = 'instituicao/instituicao_confirm_delete.html'
 
 # ========== Disciplina CRUD ==========
@@ -164,3 +164,100 @@ class DisciplinaDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('disciplinas')
     template_name = 'disciplina/disciplina_confirm_delete.html'
 
+# ========== Frequencia CRUD ==========
+
+class FrequenciaList(LoginRequiredMixin, ListView):
+    model = Disciplina
+    paginate_by = 20  # if pagination is desired
+    template_name = 'frequencia/frequencia_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        if self.kwargs.get('curso'):
+            context['curso'] = Curso.objects.get(pk=self.kwargs.get('curso'))
+        return context
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.kwargs.get('curso'):
+            queryset = queryset.filter(curso=self.kwargs.get('curso'))
+        return queryset
+
+class FrequenciaCreate(LoginRequiredMixin, CreateView):
+    form_class = FrequenciaForm
+    template_name = 'frequencia/frequencia_form.html'
+    success_url = reverse_lazy('frequencias')
+
+class FrequenciaUpdate(LoginRequiredMixin, UpdateView):
+    model = Disciplina
+    form_class = DisciplinaForm
+    template_name = 'frequencia/frequencia_form.html'
+    success_url = reverse_lazy('frequencias')
+
+class FrequenciaDelete(LoginRequiredMixin, DeleteView):
+    model = Disciplina
+    success_url = reverse_lazy('frequencias')
+    template_name = 'frequencia/frequencia_confirm_delete.html'
+
+
+# ========== Matricula CRUD ==========
+
+class MatriculasAluno(LoginRequiredMixin, ListView):
+    model = Matricula
+    template_name = 'matricula/matriculas_aluno.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        if self.kwargs.get('aluno'):
+            context['aluno'] = Aluno.objects.get(pk=self.kwargs.get('aluno'))
+        # context['frequencias'] = Frequencia.objects.get(matricula=self.object_list)
+        # context['notas'] = Nota.objects.get(matricula=self.object_list)
+        return context
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.kwargs.get('aluno'):
+            queryset = queryset.filter(aluno=self.kwargs['aluno'])
+        return queryset
+
+class NotasMatricula(LoginRequiredMixin, ListView):
+    model = Nota
+    template_name = 'nota/nota_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        if self.kwargs.get('matricula'):
+            context['disciplina'] = Matricula.objects.get(pk=self.kwargs.get('matricula')).turma.disciplina
+            context['aluno'] = Matricula.objects.get(pk=self.kwargs.get('matricula')).aluno
+        # context['frequencias'] = Frequencia.objects.get(matricula=self.object_list)
+        # context['notas'] = Nota.objects.get(matricula=self.object_list)
+        return context
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.kwargs.get('matricula'):
+            queryset = queryset.filter(matricula=self.kwargs['matricula'])
+        return queryset
+
+class FrequenciasMatricula(LoginRequiredMixin, ListView):
+    model = Frequencia
+    template_name = 'frequencia/frequencia_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        if self.kwargs.get('matricula'):
+            context['disciplina'] = Matricula.objects.get(pk=self.kwargs.get('matricula')).turma.disciplina
+            context['aluno'] = Matricula.objects.get(pk=self.kwargs.get('matricula')).aluno
+        # context['frequencias'] = Frequencia.objects.get(matricula=self.object_list)
+        # context['notas'] = Nota.objects.get(matricula=self.object_list)
+        return context
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.kwargs.get('matricula'):
+            queryset = queryset.filter(matricula=self.kwargs['matricula'])
+        return queryset

@@ -1,12 +1,13 @@
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
-from .models import Aluno, Curso, Instituicao, Disciplina
+from crispy_forms.layout import Submit, Layout, Field
+from bootstrap_datepicker_plus import DatePickerInput
+from .models import Aluno, Curso, Instituicao, Disciplina, Frequencia
 
 class AlunoForm(forms.ModelForm):
     class Meta:
         model = Aluno
-        fields = [ 'nome', 'rg', 'cpf', 'telefone', 'curso', 'disciplinas' ]
+        fields = [ 'nome', 'rg', 'cpf', 'telefone', 'curso', 'turmas' ]
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -18,7 +19,7 @@ class AlunoForm(forms.ModelForm):
 class CursoForm(forms.ModelForm):
     class Meta:
         model = Curso
-        fields = [ 'nome', 'duracao', 'tipo', 'cargaHoraria', 'instituicao' ]
+        fields = [ 'nome', 'duracao', 'periodo', 'cargaHoraria', 'instituicao' ]
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -41,6 +42,27 @@ class DisciplinaForm(forms.ModelForm):
     class Meta:
         model = Disciplina
         fields = [ 'nome', 'serie', 'tipo', 'cargaHoraria', 'curso' ]
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Salvar'))
+
+class FrequenciaForm(forms.ModelForm):
+    class Meta:
+        model = Frequencia
+        fields = [ 'data', 'presenca' ]
+        widgets = {
+            'data': DatePickerInput(
+                options={
+                    "format": "DD/MM/YYYY", # moment date-time format
+                    "showClose": False,
+                    "showClear": True,
+                    "showTodayButton": False,
+                }
+            ),
+        }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

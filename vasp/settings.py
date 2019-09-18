@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'vaspapp',
     'rest_framework',
     'crispy_forms',
+    'bootstrap_datepicker_plus',
+    'bootstrap4',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -82,7 +84,7 @@ WSGI_APPLICATION = 'vasp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
