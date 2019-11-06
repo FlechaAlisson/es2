@@ -18,6 +18,8 @@ def novo_aluno(driver, url = 'http://localhost:8000/vaspapp/aluno/add/'):
 
     today = date.today()
 
+    driver.find_element_by_id('adicionar').click()
+
     # Start creation
 
     ## Fill fields
