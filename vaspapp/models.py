@@ -103,6 +103,7 @@ class Matricula(models.Model):
         self.save()
 
 class Turma(models.Model):
+    nome = models.CharField(max_length = 100, blank=False, default='%(professor.nome) - %(disciplina.nome)')
     professor = models.ForeignKey('Professor', on_delete = models.PROTECT)
     disciplina = models.ForeignKey('Disciplina', on_delete = models.PROTECT)
 

@@ -20,6 +20,12 @@ class CursoForm(forms.ModelForm):
     class Meta:
         model = Curso
         fields = [ 'nome', 'duracao', 'periodo', 'cargaHoraria', 'instituicao' ]
+        labels = {
+            'periodo': 'Período',
+            'duracao': 'Duração',
+            'cargaHoraria': 'Carga Horária',
+            'instituicao': 'Instituição'
+        }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -42,6 +48,10 @@ class DisciplinaForm(forms.ModelForm):
     class Meta:
         model = Disciplina
         fields = [ 'nome', 'serie', 'tipo', 'cargaHoraria', 'curso' ]
+        labels = {
+            'serie': 'Série',
+            'cargaHoraria': 'Carga Horária',
+        }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
