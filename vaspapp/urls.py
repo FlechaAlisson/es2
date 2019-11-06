@@ -56,6 +56,6 @@ urlpatterns = [
     path("frequencia/<int:pk>/delete", FrequenciaDelete.as_view(), name="frequencia-delete"),
      
     path("matriculas/<int:aluno>/", MatriculasAluno.as_view(), name="matriculas-aluno"),
-    path("nota/<int:matricula>/", NotasMatricula.as_view(), name="nota-list"),
-    path("frequencia/<int:matricula>/", FrequenciasMatricula.as_view(), name="frequencia-list"),
+    # path("nota/<int:matricula>/", NotasMatricula.as_view(), name="notas"),
+    # path("frequencia/<int:matricula>/", FrequenciasMatricula.as_view(), name="frequencias"),
 ]
