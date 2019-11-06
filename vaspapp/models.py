@@ -148,7 +148,6 @@ class Professor(models.Model):
     cpf = models.PositiveIntegerField(unique=True, blank=False, default=None) 
     telefone = models.CharField(max_length = 15)
     curso = models.ForeignKey('Curso', on_delete = models.CASCADE )
-    disciplinas = models.ManyToManyField('Disciplina', related_name='professores', blank = True)
 
     def publish(self):
         self.published_date = timezone.now

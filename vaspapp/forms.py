@@ -2,7 +2,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Field
 from bootstrap_datepicker_plus import DatePickerInput
-from .models import Aluno, Curso, Instituicao, Disciplina, Frequencia
+from .models import Aluno, Curso, Instituicao, Disciplina, Frequencia, Professor, Turma
 
 class AlunoForm(forms.ModelForm):
     class Meta:
@@ -63,6 +63,29 @@ class FrequenciaForm(forms.ModelForm):
                 }
             ),
         }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Salvar'))
+
+class ProfessorForm(forms.ModelForm):
+    class Meta:
+        model = Professor
+        fields = [ 'nome', 'rg', 'cpf', 'telefone', 'curso' ]
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Salvar'))
+
+
+class TurmaForm(forms.ModelForm):
+    class Meta:
+        model = Turma
+        fields = [ 'professor', 'disciplina' ]
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

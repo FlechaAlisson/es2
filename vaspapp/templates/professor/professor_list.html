@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex">
+    <div class="p-2 flex-grow-1 bd-highlight">
+        <h1>
+            Professores
+            {% if disc %}
+            em {{ disc.nome }}
+            {% elif curso %}
+            em {{ curso.nome }}
+            {% endif %}
+        </h1>
+    </div>
+    <div class="p-2 bd-highlight align-self-center">
+        <a role="button" href="{% url 'professor-add' %}" class="btn btn-primary active">
+            <span class="fa fa-plus"></span>
+            Adicionar
+        </a>
+    </div>
+</div>
+
+{% if object_list %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th>Nome</th>
+                <th>Curso</th>
+                <th>Telefone</th>
+                <th>Documento</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for aluno in object_list %}
+            <tr>
+                <td>{{ aluno.nome }}</td>
+                <td>{{ aluno.curso }}</td>
+                <td>{{ aluno.telefone }}</td>
+                <td>{{ aluno.cpf }}</td>
+                <td>
+                    <a role="button" href="{% url 'matriculas-aluno' aluno.pk %}" class="btn btn-primary active">
+                        <span class="fa fa-graduation-cap"></span>
+                    </a>
+                    <a role="button" href="{% url 'aluno-update' aluno.pk %}" class="btn btn-success active">
+                        <span class="fa fa-edit"></span>
+                    </a>
+                    <a role="button" href="{% url 'aluno-delete' aluno.pk %}" class="btn btn-danger active">
+                        <span class="fa fa-trash"></span>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="d-flex justify-content-center">
+    <span class="badge badge-info">{{ object_list | length }}
+        Professor{{ object_list | length | pluralize }}</span>
+</div>
+{% else %}
+<div class="alert alert-danger" role="alert">
+    Nenhum Professor Encontrado!
+</div>
+{% endif %}
+{% endblock %}

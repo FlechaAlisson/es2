@@ -2,7 +2,9 @@ from django.urls import path, include
 from django.conf.urls import url
 from . import views
 from .views import AlunoList, AlunoCreate, AlunoUpdate, AlunoDelete
+from .views import ProfessorList, ProfessorCreate, ProfessorUpdate, ProfessorDelete
 from .views import CursoList, CursoCreate, CursoUpdate, CursoDelete
+from .views import TurmaList, TurmaCreate, TurmaUpdate, TurmaDelete
 from .views import InstituicaoList, InstituicaoCreate, InstituicaoUpdate, InstituicaoDelete
 from .views import DisciplinaList, DisciplinaCreate, DisciplinaUpdate, DisciplinaDelete
 from .views import FrequenciaList, FrequenciaCreate, FrequenciaUpdate, FrequenciaDelete
@@ -19,11 +21,23 @@ urlpatterns = [
     path("aluno/add/", AlunoCreate.as_view(), name="aluno-add"),
     path("aluno/<int:pk>/edit", AlunoUpdate.as_view(), name="aluno-update"),
     path("aluno/<int:pk>/delete", AlunoDelete.as_view(), name="aluno-delete"),
+
+    path("professor/", ProfessorList.as_view(), name='professores'),
+    path("professor/disc/<int:disc>", ProfessorList.as_view(), name='professor-disciplina'),
+    path("professor/curso/<int:curso>", ProfessorList.as_view(), name='professor-curso'),
+    path("professor/add/", ProfessorCreate.as_view(), name="professor-add"),
+    path("professor/<int:pk>/edit", ProfessorUpdate.as_view(), name="professor-update"),
+    path("professor/<int:pk>/delete", ProfessorDelete.as_view(), name="professor-delete"),
     
     path("curso/", CursoList.as_view(), name='cursos'),
     path("curso/add/", CursoCreate.as_view(), name="curso-add"),
     path("curso/<int:pk>/edit", CursoUpdate.as_view(), name="curso-update"),
     path("curso/<int:pk>/delete", CursoDelete.as_view(), name="curso-delete"),
+
+    path("turma/", TurmaList.as_view(), name='turmas'),
+    path("turma/add/", TurmaCreate.as_view(), name="turma-add"),
+    path("turma/<int:pk>/edit", TurmaUpdate.as_view(), name="turma-update"),
+    path("turma/<int:pk>/delete", TurmaDelete.as_view(), name="turma-delete"),
 
     path("instituicao/", InstituicaoList.as_view(), name='instituicao'),
     path("instituicao/add/", InstituicaoCreate.as_view(), name="instituicao-add"),
