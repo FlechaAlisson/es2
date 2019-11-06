@@ -12,11 +12,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from login import login, ADMIN_ACCOUNT
 from utils import random_string, wait_spinner, scroll_and_click, choose_from_select
 
-def new_student(driver, url = 'http://localhost:8000/vaspapp/aluno/add/'):
+def novo_aluno(driver, url = 'http://localhost:8000/vaspapp/aluno/add/'):
     # Generate values
     driver.get(url)
 
     today = date.today()
+
+    driver.find_element_by_id('adicionar').click()
 
     # Start creation
 
