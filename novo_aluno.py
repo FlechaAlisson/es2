@@ -22,9 +22,9 @@ def new_student(driver, url = 'http://localhost:8000/vaspapp/aluno/add/'):
 
     ## Fill fields
     driver.find_element_by_id('id_name').send_keys(random_string())
-    driver.find_element_by_id('id_rg').send_keys(random_string())
-    driver.find_element_by_id('id_cpf').send_keys(random_string())
-    driver.find_element_by_id('id_telefone').send_keys(random_string())
+    driver.find_element_by_id('id_rg').send_keys(123456)
+    driver.find_element_by_id('id_cpf').send_keys(89239469)
+    driver.find_element_by_id('id_telefone').send_keys(991991991)
     select = Select(driver.find_element_by_name('id_curso'))
     select.select_by_index(1)
 
@@ -38,7 +38,7 @@ if __name__ == '__main__':
 
         login(driver, ADMIN_ACCOUNT)
 
-        new_person(driver)
+        novo_aluno(driver)
     except e:
         print('Test number', i, 'has failed!!!')
     finally:
