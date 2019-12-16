@@ -9,7 +9,8 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class TestSelenium1():
 
-    def test_login(driver = webdriver.Chrome(), url='http://localhost:8000/accounts/login/'):
+    def test_login(url='http://localhost:8000/accounts/login/'):
+        driver = webdriver.Chrome()
         driver.get(url)
 
         driver.find_element_by_id('id_username').send_keys('andrelopes')

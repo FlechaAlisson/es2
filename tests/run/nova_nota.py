@@ -10,7 +10,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 
-from login import TestSelenium1
 from utils import random_string, wait_spinner, scroll_and_click, choose_from_select
 
 
