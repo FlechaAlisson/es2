@@ -6,6 +6,8 @@ from .views import CursoList, CursoCreate, CursoUpdate, CursoDelete
 from .views import InstituicaoList, InstituicaoCreate, InstituicaoUpdate, InstituicaoDelete
 from .views import DisciplinaList, DisciplinaCreate, DisciplinaUpdate, DisciplinaDelete
 from .views import FrequenciaList, FrequenciaCreate, FrequenciaUpdate, FrequenciaDelete
+from .views import NotaList, NotaCreate, NotaUpdate, NotaDelete
+from .views import MatriculaCreate, MatriculaUpdate, MatriculaDelete
 from .views import MatriculasAluno, NotasMatricula, FrequenciasMatricula
 
 
@@ -40,6 +42,15 @@ urlpatterns = [
     path("frequencia/add/", FrequenciaCreate.as_view(), name="frequencia-add"),
     path("frequencia/<int:pk>/edit", FrequenciaUpdate.as_view(), name="frequencia-update"),
     path("frequencia/<int:pk>/delete", FrequenciaDelete.as_view(), name="frequencia-delete"),
+
+    path("nota/", NotaList.as_view(), name='notas'),
+    path("nota/add/", NotaCreate.as_view(), name="nota-add"),
+    path("nota/<int:pk>/edit", NotaUpdate.as_view(), name="nota-update"),
+    path("nota/<int:pk>/delete", NotaDelete.as_view(), name="nota-delete"),
+
+    path("matricula/add/", MatriculaCreate.as_view(), name="matricula-add"),
+    path("matricula/<int:pk>/edit", MatriculaUpdate.as_view(), name="matricula-update"),
+    path("matricula/<int:pk>/delete", MatriculaDelete.as_view(), name="matricula-delete"),
      
     path("matriculas/<int:aluno>/", MatriculasAluno.as_view(), name="matriculas-aluno"),
     path("nota/<int:matricula>/", NotasMatricula.as_view(), name="nota-list"),

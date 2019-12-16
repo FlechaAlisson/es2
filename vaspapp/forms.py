@@ -2,7 +2,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Field
 from bootstrap_datepicker_plus import DatePickerInput
-from .models import Aluno, Curso, Instituicao, Disciplina, Frequencia
+from .models import Aluno, Curso, Instituicao, Disciplina, Frequencia, Nota, Matricula
 
 class AlunoForm(forms.ModelForm):
     class Meta:
@@ -49,10 +49,42 @@ class DisciplinaForm(forms.ModelForm):
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Salvar'))
 
+class MatriculaForm(forms.ModelForm):
+    class Meta:
+        model = Matricula
+        fields = [ 'disciplina', 'aluno' ]
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Salvar'))
+
 class FrequenciaForm(forms.ModelForm):
     class Meta:
         model = Frequencia
-        fields = [ 'data', 'presenca' ]
+        fields = [ 'matricula', 'data', 'presenca' ]
+        widgets = {
+            'data': DatePickerInput(
+                options={
+                    "format": "DD/MM/YYYY", # moment date-time format
+                    "showClose": False,
+                    "showClear": True,
+                    "showTodayButton": False,
+                }
+            ),
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Salvar'))
+
+class NotaForm(forms.ModelForm):
+    class Meta:
+        model = Nota
+        fields = [ 'matricula', 'data', 'nota' ]
         widgets = {
             'data': DatePickerInput(
                 options={

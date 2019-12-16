@@ -16,7 +16,7 @@ class Aluno(models.Model):
     cpf = models.PositiveIntegerField(unique=True, blank=False, default=None) 
     telefone = models.CharField(max_length = 15)
     curso = models.ForeignKey('Curso', on_delete = models.CASCADE )
-    turmas = models.ManyToManyField('Turma', related_name='alunos', blank = True, through='Matricula')
+    turmas = models.ManyToManyField('Disciplina', related_name='alunos', blank = True, through='Matricula')
 
     def publish(self):
         self.published_date = timezone.now
@@ -96,11 +96,14 @@ class Disciplina(models.Model):
 
 class Matricula(models.Model):
     aluno = models.ForeignKey('Aluno', on_delete = models.PROTECT)
-    turma = models.ForeignKey('Turma', on_delete = models.PROTECT)
+    disciplina = models.ForeignKey('Disciplina', on_delete = models.PROTECT)
 
     def publish(self):
         self.published_date = timezone.now
         self.save()
+
+    def __str__(self):
+        return 'Aluno: {}, Disciplina: {}'.format(self.aluno.nome, self.disciplina.nome)
 
 class Turma(models.Model):
     professor = models.ForeignKey('Professor', on_delete = models.PROTECT)
@@ -116,12 +119,12 @@ class Frequencia(models.Model):
         self.save()
         
     def __str__(self):
-        return self.presenca
+        return 'Presente' if self.presenca else 'Ausente'
 
 class Nota(models.Model):
     matricula = models.ForeignKey('Matricula', on_delete = models.PROTECT)
     nota = models.FloatField(blank=True, null=True, default=None)
-    avaliacao = models.ForeignKey('Avaliacao', on_delete = models.PROTECT)
+    data = models.DateField()
 
     def publish(self):
         self.published_date = timezone.now
